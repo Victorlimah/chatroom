@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "paticipants")
+@Table(name = "participants")
 public class ParticipantModel implements Serializable{
   private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,10 @@ public class ParticipantModel implements Serializable{
 
   @Column(nullable = false)
   private LocalDateTime lastActivity;
+
+  public String getName() {
+    return name;
+  }
 
   public void setName(String name) {
     this.name = name;

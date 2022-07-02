@@ -1,5 +1,7 @@
 package br.dcx.ufpb.chatroom.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -18,5 +20,9 @@ public class ParticipantService {
   @Transactional
   public void save(ParticipantModel participant) {
     participantRepository.save(participant);
+  }
+
+  public List<ParticipantModel> findAll() {
+    return participantRepository.findAll();
   }
 }
