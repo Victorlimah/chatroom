@@ -11,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "paticipants")
 public class ParticipantModel implements Serializable{
@@ -25,4 +30,12 @@ public class ParticipantModel implements Serializable{
 
   @Column(nullable = false)
   private LocalDateTime lastActivity;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setLastActivity(LocalDateTime now) {
+    this.lastActivity = now;
+  }
 }
