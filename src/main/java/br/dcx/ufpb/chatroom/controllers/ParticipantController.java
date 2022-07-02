@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,11 +40,21 @@ public class ParticipantController {
     return ResponseEntity.status(HttpStatus.CREATED).body("Participant created");
   }
 
-  // pegar todos os participantes e devolver em um array de objetos com a propriedade name
   @GetMapping
   public ResponseEntity<List<ParticipantModel>> getAllParticipants() {
     var participants = participantService.findAll();
-    return ResponseEntity.status(HttpStatus.OK).body(participants);
+    participants.removeIf(p -> p.getLastActivity().isBefore(LocalDateTime.now().minusMinutes(1)));
+    return ResponseEntity.ok(participants);
+  }
+
+  @PutMapping
+  public ResponseEntity<String> updateParticipant(@RequestBody @Valid ParticipantDto participantDto) {
+    var participant = new ParticipantModel();
+    participant.setName(participantDto.getName());
+    participant.setLastActivity(LocalDateTime.now());
+
+    participantService.save(participant);
+    return ResponseEntity.status(HttpStatus.OK).body("Participant updated");
   }
 
 }

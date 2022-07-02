@@ -12,4 +12,5 @@ import br.dcx.ufpb.chatroom.models.ParticipantModel;
 public interface ParticipantRepository extends JpaRepository<ParticipantModel, UUID> {
 
   List<ParticipantModel> findAll();
+
 }

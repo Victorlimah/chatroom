@@ -42,4 +42,8 @@ public class ParticipantModel implements Serializable{
   public void setLastActivity(LocalDateTime now) {
     this.lastActivity = now;
   }
+
+  public LocalDateTime getLastActivity() {
+    return lastActivity;
+  }
 }
