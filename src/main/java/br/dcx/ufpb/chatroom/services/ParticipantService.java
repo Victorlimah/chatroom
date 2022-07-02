@@ -1,6 +1,8 @@
 package br.dcx.ufpb.chatroom.services;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -24,5 +26,9 @@ public class ParticipantService {
 
   public List<ParticipantModel> findAll() {
     return participantRepository.findAll();
+  }
+
+  public Optional<ParticipantModel> findById(UUID id) {
+    return participantRepository.findById(id);
   }
 }

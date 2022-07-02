@@ -1,6 +1,7 @@
 package br.dcx.ufpb.chatroom.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,6 @@ import br.dcx.ufpb.chatroom.models.ParticipantModel;
 public interface ParticipantRepository extends JpaRepository<ParticipantModel, UUID> {
 
   List<ParticipantModel> findAll();
+  Optional<ParticipantModel> findById(UUID id);
 
 }
