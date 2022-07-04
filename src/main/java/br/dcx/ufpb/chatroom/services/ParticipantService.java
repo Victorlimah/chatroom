@@ -31,4 +31,14 @@ public class ParticipantService {
   public Optional<ParticipantModel> findById(UUID id) {
     return participantRepository.findById(id);
   }
+
+  public Optional<ParticipantModel> findLastByName(String name) {
+    return participantRepository.findByName(name);
+  }
+
+  public void delete(ParticipantModel participant) {
+    participantRepository.delete(participant);
+  }
+
+
 }

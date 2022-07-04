@@ -4,7 +4,6 @@ package br.dcx.ufpb.chatroom.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -47,8 +46,18 @@ public class ParticipantController {
   @GetMapping
   public ResponseEntity<List<ParticipantModel>> getAllParticipants() {
     var participants = participantService.findAll();
-    participants.removeIf(p -> p.getLastActivity().isBefore(LocalDateTime.now().minusMinutes(1)));
-    return ResponseEntity.ok(participants);
+    // criar uma lista para retornar
+    // se o lastActivity for menor que 1 minuto, adicionar na lista de retorno
+    // se não, deletar do banco de dados
+
+    participants.forEach(participant -> {
+      if (participant.getLastActivity().isBefore(LocalDateTime.now().minusMinutes(1))) {
+        participantService.delete(participant);
+      }
+    });
+
+
+    return ResponseEntity.status(HttpStatus.OK).body(participants);
   }
 
   @PutMapping
@@ -63,8 +72,7 @@ public class ParticipantController {
 
   @PutMapping("/activity/{id}")
   public ResponseEntity<String> updateParticipantActivity(@PathVariable(value = "id") String id, @RequestBody @Valid ParticipantDto participantDto) {
-    var uuid = UUID.fromString(id);
-    Optional<ParticipantModel> participant = participantService.findById(uuid);
+    Optional<ParticipantModel> participant = participantService.findLastByName(id);
 
     if (participant.isPresent()) {
       participant.get().setLastActivity(LocalDateTime.now());

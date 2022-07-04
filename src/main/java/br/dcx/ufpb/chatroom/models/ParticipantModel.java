@@ -31,6 +31,10 @@ public class ParticipantModel implements Serializable{
   @Column(nullable = false)
   private LocalDateTime lastActivity;
 
+  public UUID getId() {
+    return id;
+  }
+
   public String getName() {
     return name;
   }

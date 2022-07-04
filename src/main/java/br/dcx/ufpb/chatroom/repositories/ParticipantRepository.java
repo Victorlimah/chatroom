@@ -14,5 +14,6 @@ public interface ParticipantRepository extends JpaRepository<ParticipantModel, U
 
   List<ParticipantModel> findAll();
   Optional<ParticipantModel> findById(UUID id);
+  Optional<ParticipantModel> findByName(String name);
 
 }
